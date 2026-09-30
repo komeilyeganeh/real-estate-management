@@ -19,6 +19,12 @@ enum UnitStatus {
   MAINTENANCE
 }
 
+enum LeaseStatus {
+  ACTIVE
+  EXPIRED
+  TERMINATED
+}
+
 model Property {
   id Int @id @default(autoincrement())
   name String 
@@ -42,6 +48,8 @@ model Unit {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  leases Lease[]
+
   property Property @relation(fields: [propertyId], references: [id])
 }
 
@@ -53,4 +61,22 @@ model Tenant {
   phone String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  leases Lease[]
+}
+
+model Lease {
+  id Int @id @default(autoincrement())
+  unitId Int
+  tenantId Int
+  startDate DateTime
+  endDate DateTime
+  monthlyRent Decimal
+  deposit Decimal
+  status LeaseStatus
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  unit Unit @relation(fields:[unitId], references: [id])
+  tenant Tenant @relation(fields:[tenantId], references: [id])
 }
