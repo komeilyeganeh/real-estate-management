@@ -7,7 +7,9 @@ export class LeasesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   create(dto: CreateLeaseDto) {
-    return 'DB: created';
+    return this.prisma.lease.create({
+      data: dto,
+    });
   }
 
   findUnit(unitId: number) {

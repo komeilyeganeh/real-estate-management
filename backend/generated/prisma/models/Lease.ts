@@ -348,7 +348,7 @@ export type LeaseCreateInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   unit: Prisma.UnitCreateNestedOneWithoutLeasesInput
@@ -363,7 +363,7 @@ export type LeaseUncheckedCreateInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -401,7 +401,7 @@ export type LeaseCreateManyInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -587,7 +587,7 @@ export type LeaseCreateWithoutUnitInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutLeasesInput
@@ -600,7 +600,7 @@ export type LeaseUncheckedCreateWithoutUnitInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -652,7 +652,7 @@ export type LeaseCreateWithoutTenantInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   unit: Prisma.UnitCreateNestedOneWithoutLeasesInput
@@ -665,7 +665,7 @@ export type LeaseUncheckedCreateWithoutTenantInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -703,7 +703,7 @@ export type LeaseCreateManyUnitInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -750,7 +750,7 @@ export type LeaseCreateManyTenantInput = {
   endDate: Date | string
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
   deposit: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.LeaseStatus
+  status?: $Enums.LeaseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
