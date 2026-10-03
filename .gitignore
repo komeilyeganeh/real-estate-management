@@ -16,6 +16,8 @@ lerna-debug.log*
 .claude
 .windsurf
 
+req.http
+
 # OS
 .DS_Store
 
