@@ -18,6 +18,10 @@ export class LeasesService {
         if (unit.status !== "AVAILABLE") {
             throw new ConflictException("This unit is not available for rent.")
         }
+        const activeLease = await this.leasesRepository.findActiveLeaseByUnit(dto.unitId)
+        if (activeLease) {
+            throw new ConflictException("This unit already has an active lease.")
+        }
         return this.leasesRepository.create(dto)
     }
 }

@@ -19,4 +19,10 @@ export class LeasesRepository {
   findTenant(tenantId: number) {
     return this.prisma.tenant.findUnique({ where: { id: tenantId } });
   }
+
+  findActiveLeaseByUnit(unitId: number) {
+    return this.prisma.lease.findFirst({
+      where: { unitId },
+    });
+  }
 }
