@@ -353,7 +353,7 @@ export type UnitCreateInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   leases?: Prisma.LeaseCreateNestedManyWithoutUnitInput
@@ -367,7 +367,7 @@ export type UnitUncheckedCreateInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   propertyId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -408,7 +408,7 @@ export type UnitCreateManyInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   propertyId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -584,7 +584,7 @@ export type UnitCreateWithoutPropertyInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   leases?: Prisma.LeaseCreateNestedManyWithoutUnitInput
@@ -597,7 +597,7 @@ export type UnitUncheckedCreateWithoutPropertyInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   leases?: Prisma.LeaseUncheckedCreateNestedManyWithoutUnitInput
@@ -651,7 +651,7 @@ export type UnitCreateWithoutLeasesInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   property: Prisma.PropertyCreateNestedOneWithoutUnitsInput
@@ -664,7 +664,7 @@ export type UnitUncheckedCreateWithoutLeasesInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   propertyId: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -718,7 +718,7 @@ export type UnitCreateManyPropertyInput = {
   area: runtime.Decimal | runtime.DecimalJsLike | number | string
   bedrooms: number
   monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status: $Enums.UnitStatus
+  status?: $Enums.UnitStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }

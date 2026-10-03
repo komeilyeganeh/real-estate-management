@@ -43,7 +43,7 @@ model Unit {
   area Decimal
   bedrooms Int
   monthlyRent Decimal
-  status UnitStatus
+  status UnitStatus @default(AVAILABLE)
   propertyId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
