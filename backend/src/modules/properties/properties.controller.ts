@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @ApiTags("Properties")
 @Controller('properties')
@@ -28,8 +30,8 @@ export class PropertiesController {
 
   @ApiOperation({ summary: 'Get all properties' })
   @Get()
-  findAll() {
-    return this.propertiesService.findAll();
+  findAll(@Query() dto: QueryDto) {
+    return this.propertiesService.findAll(dto);
   }
 
   @ApiOperation({ summary: 'Get a property by ID' })

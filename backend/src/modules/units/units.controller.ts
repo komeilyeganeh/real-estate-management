@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { UnitsService } from './units.service';
 import { CreateUnitDto } from './dto/create-unit.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UpdateUnitDto } from './dto/update-unit.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @ApiTags('Units')
 @Controller('units')
@@ -30,8 +32,8 @@ export class UnitsController {
     summary: 'Get all units',
   })
   @Get()
-  findAll() {
-    return this.unitsService.findAll();
+  findAll(@Query() dto: QueryDto) {
+    return this.unitsService.findAll(dto);
   }
 
   @ApiOperation({

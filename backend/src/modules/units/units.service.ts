@@ -6,6 +6,7 @@ import {
 import { UnitsRepository } from './units.repository';
 import { CreateUnitDto } from './dto/create-unit.dto';
 import { UpdateUnitDto } from './dto/update-unit.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @Injectable()
 export class UnitsService {
@@ -19,8 +20,8 @@ export class UnitsService {
     return this.unitsRepository.create(dto);
   }
 
-  findAll() {
-    return this.unitsRepository.findAll();
+  findAll(dto: QueryDto) {
+    return this.unitsRepository.findAll(dto);
   }
 
   async findById(id: number) {

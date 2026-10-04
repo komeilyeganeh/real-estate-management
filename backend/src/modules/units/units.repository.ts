@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUnitDto } from './dto/create-unit.dto';
 import { UpdateUnitDto } from './dto/update-unit.dto';
+import { QueryDto } from '../../common/dto/query.dto';
+import { Prisma } from '../../../generated/prisma/client';
 
 @Injectable()
 export class UnitsRepository {
@@ -23,8 +25,49 @@ export class UnitsRepository {
     return this.prisma.property.findUnique({ where: { id: propertyId } });
   }
 
-  findAll() {
-    return this.prisma.unit.findMany();
+  async findAll({ page, limit, search }: QueryDto) {
+    const skip = (page - 1) * limit;
+
+    const floor = Number(search);
+
+    const where: Prisma.UnitWhereInput | undefined = search
+      ? {
+          OR: [
+            {
+              unitNumber: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            },
+            ...(Number.isInteger(floor) ? [{ floor }] : []),
+          ],
+        }
+      : undefined;
+
+    const [data, total] = await Promise.all([
+      this.prisma.unit.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+
+      this.prisma.unit.count({
+        where,
+      }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   findById(id: number) {

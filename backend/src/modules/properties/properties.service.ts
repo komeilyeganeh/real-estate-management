@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PropertiesRepository } from './properties.repository';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
+import { QueryDto } from '../../common/dto/query.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -11,8 +12,8 @@ export class PropertiesService {
     return this.propertiesRepository.create(dto);
   }
 
-  findAll() {
-    return this.propertiesRepository.findAll();
+  findAll(dto: QueryDto) {
+    return this.propertiesRepository.findAll(dto);
   }
 
   async findById(id: number) {
