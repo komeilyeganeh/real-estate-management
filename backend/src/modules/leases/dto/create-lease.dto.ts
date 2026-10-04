@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsInt, IsString } from "class-validator";
+import { IsDateString, IsDecimal, IsInt, IsString } from "class-validator";
 
 export class CreateLeaseDto {
     @ApiProperty()
@@ -19,10 +19,10 @@ export class CreateLeaseDto {
     endDate!: string;
 
     @ApiProperty()
-    @IsString()
+    @IsDecimal()
     monthlyRent!: string;
 
     @ApiProperty()
-    @IsString()
+    @IsDecimal()
     deposit!: string;
 }

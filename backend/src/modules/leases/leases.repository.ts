@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateLeaseDto } from './dto/create-lease.dto';
+import { UpdateLeaseDto } from './dto/update-lease.dto';
 
 @Injectable()
 export class LeasesRepository {
@@ -53,9 +54,9 @@ export class LeasesRepository {
         data: dto,
       });
       await tx.unit.update({
-        where: {id: dto.unitId},
-        data: { status: "RENTED" }
-      })
+        where: { id: dto.unitId },
+        data: { status: 'RENTED' },
+      });
       return createdLease;
     });
   }
@@ -76,6 +77,43 @@ export class LeasesRepository {
   findActiveLeaseByTenant(tenantId: number) {
     return this.prisma.lease.findFirst({
       where: { tenantId },
+    });
+  }
+
+  findAll() {
+    return this.prisma.lease.findMany();
+  }
+
+  findById(id: number) {
+    return this.prisma.lease.findUnique({
+      where: { id },
+    });
+  }
+
+  update(id: number, dto: UpdateLeaseDto) {
+    return this.prisma.lease.update({
+      where: { id },
+      data: dto,
+    });
+  }
+
+  async terminateWithTransaction(id: number) {
+    return this.prisma.$transaction(async (tx) => {
+      const lease = await tx.lease.update({
+        where: { id },
+        data: {
+          status: 'TERMINATED',
+        },
+      });
+
+      await tx.unit.update({
+        where: { id: lease.unitId },
+        data: {
+          status: 'AVAILABLE',
+        },
+      });
+
+      return lease;
     });
   }
 }
