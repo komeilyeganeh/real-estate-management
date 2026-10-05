@@ -3,11 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LeasesModule } from './modules/leases/leases.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UnitsModule } from './modules/units/units.module';
 import { PropertiesModule } from './modules/properties/properties.module';
 import { TenantsModule } from './modules/tenants/tenants.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -20,6 +21,16 @@ import { AuthModule } from './modules/auth/auth.module';
     PropertiesModule,
     TenantsModule,
     AuthModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.getOrThrow("JWT_ACCESS_TOKEN"),
+        signOptions: {
+          expiresIn: configService.getOrThrow("JWT_ACCESS_EXPIRES_IN")
+        }
+      })
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
