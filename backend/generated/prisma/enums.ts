@@ -25,3 +25,11 @@ export const LeaseStatus = {
 } as const
 
 export type LeaseStatus = (typeof LeaseStatus)[keyof typeof LeaseStatus]
+
+
+export const UserRole = {
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
