@@ -1,32 +1,44 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, Input, Typography } from 'antd';
-import { Link } from 'react-router';
-import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input, Typography } from "antd";
+import { Link } from "react-router";
+import { Controller, useForm } from "react-hook-form";
 import {
   registerSchema,
   type RegisterFormValues,
-} from '../schemas/register.schema';
+} from "../schemas/register.schema";
+import { useRegister } from "../hooks/useRegister";
 
 const { Title, Text } = Typography;
 
 export default function RegisterForm() {
+  const { mutate, isPending } = useRegister();
+
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (data: RegisterFormValues) => {
-    console.log(data);
+  const onSubmit = (data: RegisterFormValues) => {
+    const { confirmPassword, ...payload } = data;
+
+    mutate(payload, {
+      onSuccess: (res) => {
+        console.log(res);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (
@@ -49,36 +61,28 @@ export default function RegisterForm() {
         <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
           <Form.Item
             label="First name"
-            validateStatus={errors.firstName ? 'error' : ''}
+            validateStatus={errors.firstName ? "error" : ""}
             help={errors.firstName?.message}
           >
             <Controller
               name="firstName"
               control={control}
               render={({ field }) => (
-                <Input
-                  {...field}
-                  size="large"
-                  placeholder="John"
-                />
+                <Input {...field} size="large" placeholder="John" />
               )}
             />
           </Form.Item>
 
           <Form.Item
             label="Last name"
-            validateStatus={errors.lastName ? 'error' : ''}
+            validateStatus={errors.lastName ? "error" : ""}
             help={errors.lastName?.message}
           >
             <Controller
               name="lastName"
               control={control}
               render={({ field }) => (
-                <Input
-                  {...field}
-                  size="large"
-                  placeholder="Doe"
-                />
+                <Input {...field} size="large" placeholder="Doe" />
               )}
             />
           </Form.Item>
@@ -86,25 +90,21 @@ export default function RegisterForm() {
 
         <Form.Item
           label="Email"
-          validateStatus={errors.email ? 'error' : ''}
+          validateStatus={errors.email ? "error" : ""}
           help={errors.email?.message}
         >
           <Controller
             name="email"
             control={control}
             render={({ field }) => (
-              <Input
-                {...field}
-                size="large"
-                placeholder="you@example.com"
-              />
+              <Input {...field} size="large" placeholder="you@example.com" />
             )}
           />
         </Form.Item>
 
         <Form.Item
           label="Password"
-          validateStatus={errors.password ? 'error' : ''}
+          validateStatus={errors.password ? "error" : ""}
           help={errors.password?.message}
         >
           <Controller
@@ -122,7 +122,7 @@ export default function RegisterForm() {
 
         <Form.Item
           label="Confirm password"
-          validateStatus={errors.confirmPassword ? 'error' : ''}
+          validateStatus={errors.confirmPassword ? "error" : ""}
           help={errors.confirmPassword?.message}
         >
           <Controller
@@ -143,7 +143,7 @@ export default function RegisterForm() {
           htmlType="submit"
           size="large"
           block
-          loading={isSubmitting}
+          loading={isPending}
         >
           Create account
         </Button>
@@ -151,7 +151,7 @@ export default function RegisterForm() {
 
       <div className="mt-8 text-center">
         <Text type="secondary">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/login"
             className="font-medium text-blue-600 hover:text-blue-700"

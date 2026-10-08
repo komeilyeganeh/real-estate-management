@@ -1,12 +1,14 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, Input, Typography } from 'antd';
-import { Link } from 'react-router';
-import { Controller, useForm } from 'react-hook-form';
-import { loginSchema, type LoginFormValues } from '../schemas/login.schema';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Form, Input, Typography } from "antd";
+import { Link } from "react-router";
+import { Controller, useForm } from "react-hook-form";
+import { loginSchema, type LoginFormValues } from "../schemas/login.schema";
+import { useLogin } from "../hooks/useLogin";
 
 const { Title, Text } = Typography;
 
 export default function LoginForm() {
+  const { mutate, isPending } = useLogin();
   const {
     control,
     handleSubmit,
@@ -14,13 +16,20 @@ export default function LoginForm() {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log(data);
+    mutate(data, {
+      onSuccess: (res) => {
+        console.log(res);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (
@@ -30,9 +39,7 @@ export default function LoginForm() {
           Welcome back
         </Title>
 
-        <Text type="secondary">
-          Sign in to your account to continue.
-        </Text>
+        <Text type="secondary">Sign in to your account to continue.</Text>
       </div>
 
       <Form
@@ -42,25 +49,21 @@ export default function LoginForm() {
       >
         <Form.Item
           label="Email"
-          validateStatus={errors.email ? 'error' : ''}
+          validateStatus={errors.email ? "error" : ""}
           help={errors.email?.message}
         >
           <Controller
             name="email"
             control={control}
             render={({ field }) => (
-              <Input
-                {...field}
-                size="large"
-                placeholder="you@example.com"
-              />
+              <Input {...field} size="large" placeholder="you@example.com" />
             )}
           />
         </Form.Item>
 
         <Form.Item
           label="Password"
-          validateStatus={errors.password ? 'error' : ''}
+          validateStatus={errors.password ? "error" : ""}
           help={errors.password?.message}
         >
           <Controller
@@ -90,7 +93,7 @@ export default function LoginForm() {
           htmlType="submit"
           size="large"
           block
-          loading={isSubmitting}
+          loading={isSubmitting || isPending}
         >
           Sign in
         </Button>
@@ -98,11 +101,8 @@ export default function LoginForm() {
 
       <div className="mt-8 text-center">
         <Text type="secondary">
-          Don't have an account?{' '}
-          <Link
-            to="/register"
-            className="font-medium text-blue-600"
-          >
+          Don't have an account?{" "}
+          <Link to="/register" className="font-medium text-blue-600">
             Create an account
           </Link>
         </Text>

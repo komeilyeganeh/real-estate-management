@@ -21,16 +21,6 @@ import { JwtModule } from '@nestjs/jwt';
     PropertiesModule,
     TenantsModule,
     AuthModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.getOrThrow("JWT_ACCESS_TOKEN"),
-        signOptions: {
-          expiresIn: configService.getOrThrow("JWT_ACCESS_EXPIRES_IN")
-        }
-      })
-    })
   ],
   controllers: [AppController],
   providers: [AppService],
