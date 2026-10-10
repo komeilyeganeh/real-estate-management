@@ -3,6 +3,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import AppLayout from "../layouts/AppLayout";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
+import { ProtectedRoute } from "../features/auth/components/ProtectedRoute";
 
 export const AppRoutes = () => {
   return (
@@ -12,8 +13,10 @@ export const AppRoutes = () => {
         <Route path="/register" element={<RegisterPage />} />
       </Route>
 
-      <Route element={<AppLayout />}>
-        <Route path="/" element={<></>} />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<></>} />
+        </Route>
       </Route>
     </Routes>
   );

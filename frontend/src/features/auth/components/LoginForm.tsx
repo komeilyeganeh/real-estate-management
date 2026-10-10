@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form, Input, Typography } from "antd";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Controller, useForm } from "react-hook-form";
 import { loginSchema, type LoginFormValues } from "../schemas/login.schema";
 import { useLogin } from "../hooks/useLogin";
@@ -9,6 +9,7 @@ const { Title, Text } = Typography;
 
 export default function LoginForm() {
   const { mutate, isPending } = useLogin();
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -23,8 +24,8 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormValues) => {
     mutate(data, {
-      onSuccess: (res) => {
-        console.log(res);
+      onSuccess: () => {
+        navigate("/");
       },
       onError: (error) => {
         console.log(error);
