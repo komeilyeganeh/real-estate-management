@@ -81,7 +81,19 @@ export class LeasesRepository {
   }
 
   findAll() {
-    return this.prisma.lease.findMany();
+    return this.prisma.lease.findMany({
+      include: {
+        tenant: true,
+        unit: {
+          include: {
+            property: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
   findById(id: number) {

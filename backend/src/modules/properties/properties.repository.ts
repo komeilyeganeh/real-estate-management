@@ -45,7 +45,7 @@ export class PropertiesRepository {
           createdAt: 'desc',
         },
       }),
-      this.prisma.property.count(),
+      this.prisma.property.count({ where }),
     ]);
 
     return {
