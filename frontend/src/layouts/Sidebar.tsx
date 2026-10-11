@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router";
 import {
   AppstoreOutlined,
@@ -8,7 +7,12 @@ import {
   FileTextOutlined,
   HomeOutlined,
   SettingOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
+
+interface SidebarProps {
+  onNavigate?: () => void;
+}
 
 const navigationItems = [
   {
@@ -38,23 +42,44 @@ const navigationItems = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onNavigate }: SidebarProps) {
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    [
+      "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors",
+      isActive
+        ? "bg-blue-600 text-white shadow-lg shadow-blue-950/30"
+        : "text-slate-400 hover:bg-white/5 hover:text-white",
+    ].join(" ");
+
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col bg-slate-950 text-white">
+    <aside className="flex h-screen w-full flex-col overflow-hidden bg-slate-950 text-white">
       {/* Logo */}
-      <div className="flex h-[76px] shrink-0 items-center gap-3 border-b border-white/10 px-6">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 text-xl">
-          <HomeOutlined />
+      <div className="flex h-[76px] shrink-0 items-center justify-between border-b border-white/10 px-5 sm:px-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-xl">
+            <HomeOutlined />
+          </div>
+
+          <div>
+            <h1 className="text-base font-bold tracking-wide">
+              EstatePro
+            </h1>
+            <p className="mt-0.5 text-xs text-slate-400">
+              Management System
+            </p>
+          </div>
         </div>
 
-        <div>
-          <h1 className="text-base font-bold tracking-wide">
-            EstatePro
-          </h1>
-          <p className="mt-0.5 text-xs text-slate-400">
-            Management System
-          </p>
-        </div>
+        {onNavigate && (
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            onClick={onNavigate}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-lg text-slate-400 transition hover:bg-white/10 hover:text-white lg:hidden"
+          >
+            <CloseOutlined />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
@@ -69,14 +94,8 @@ export default function Sidebar() {
               key={item.path}
               to={item.path}
               end={item.path === "/"}
-              className={({ isActive }) =>
-                [
-                  "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-950/30"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white",
-                ].join(" ")
-              }
+              onClick={onNavigate}
+              className={linkClass}
             >
               <span className="text-lg">{item.icon}</span>
               <span>{item.label}</span>
@@ -90,21 +109,15 @@ export default function Sidebar() {
 
         <NavLink
           to="/settings"
-          className={({ isActive }) =>
-            [
-              "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors",
-              isActive
-                ? "bg-blue-600 text-white"
-                : "text-slate-400 hover:bg-white/5 hover:text-white",
-            ].join(" ")
-          }
+          onClick={onNavigate}
+          className={linkClass}
         >
           <SettingOutlined className="text-lg" />
           <span>Settings</span>
         </NavLink>
       </nav>
 
-      {/* Bottom section */}
+      {/* Bottom Section */}
       <div className="shrink-0 border-t border-white/10 p-4">
         <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-300">
