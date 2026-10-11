@@ -5,6 +5,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { Avatar, Badge, Input } from "antd";
+import { LogoutButton } from "../features/auth/components/LogoutButton";
 
 const pageTitles: Record<string, string> = {
   "/": "Dashboard",
@@ -69,6 +70,8 @@ export default function Header() {
             </p>
           </div>
         </div>
+
+        <LogoutButton />
       </div>
     </header>
   );

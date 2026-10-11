@@ -1,7 +1,19 @@
-import { Navigate, Outlet } from "react-router";
-import { getAccessToken } from "../service/token.service";
+import { Navigate, Outlet, useLocation } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 export function ProtectedRoute() {
-  const token = getAccessToken();
-  return token ? <Outlet /> : <Navigate replace to="/login" />;
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  if (!isAuthenticated) {
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ from: location }}
+      />
+    );
+  }
+
+  return <Outlet />;
 }

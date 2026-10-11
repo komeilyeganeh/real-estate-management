@@ -1,13 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../service/auth.service";
-import { saveAccessToken } from "../service/token.service";
+import { login as loginRequest } from "../service/auth.service";
+import { useAuth } from "../context/AuthContext";
+
+interface LoginResponse {
+  accessToken: string;
+}
 
 export const useLogin = () => {
+  const auth = useAuth();
+
   return useMutation({
     mutationKey: ["login"],
-    mutationFn: login,
-    onSuccess: (res) => {
-      saveAccessToken(res.accessToken);
+    mutationFn: async (data: {
+      email: string;
+      password: string;
+    }) => {
+      return (await loginRequest(data)) as LoginResponse;
+    },
+    onSuccess: (response) => {
+      auth.login(response.accessToken);
     },
   });
 };
