@@ -7,6 +7,7 @@ import { ProtectedRoute } from "../features/auth/components/ProtectedRoute";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import PropertiesPage from "../pages/properties/PropertiesPage";
 import UnitsPage from "../pages/units/UnitsPage";
+import TenantsPage from "../pages/tenants/TenantsPage";
 
 export const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ export const AppRoutes = () => {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/properties" element={<PropertiesPage />} />
           <Route path="/units" element={<UnitsPage />} />
+          <Route path="/tenants" element={<TenantsPage />} />
         </Route>
       </Route>
     </Routes>
