@@ -8,6 +8,7 @@ import DashboardPage from "../pages/dashboard/DashboardPage";
 import PropertiesPage from "../pages/properties/PropertiesPage";
 import UnitsPage from "../pages/units/UnitsPage";
 import TenantsPage from "../pages/tenants/TenantsPage";
+import LeasesPage from "../pages/leases/LeasesPage";
 
 export const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ export const AppRoutes = () => {
           <Route path="/properties" element={<PropertiesPage />} />
           <Route path="/units" element={<UnitsPage />} />
           <Route path="/tenants" element={<TenantsPage />} />
+          <Route path="/leases" element={<LeasesPage />} />
         </Route>
       </Route>
     </Routes>
