@@ -14,6 +14,7 @@ import PropertiesPage from "../pages/properties/PropertiesPage";
 import UnitsPage from "../pages/units/UnitsPage";
 import TenantsPage from "../pages/tenants/TenantsPage";
 import LeasesPage from "../pages/leases/LeasesPage";
+import NotFoundPage from "../pages/not-found/NotFoundPage";
 
 export const AppRoutes = () => {
   return (
@@ -32,6 +33,11 @@ export const AppRoutes = () => {
           <Route path="/units" element={<UnitsPage />} />
           <Route path="/tenants" element={<TenantsPage />} />
           <Route path="/leases" element={<LeasesPage />} />
+
+          {/* Settings placeholder */}
+          <Route path="/settings" element={<NotFoundPage />} />{" "}
+          {/* Unknown dashboard routes */}{" "}
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Route>
     </Routes>
